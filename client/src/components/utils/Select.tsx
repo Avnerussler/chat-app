@@ -13,9 +13,9 @@ export const Select = ({ options, placeholder }: SelectProps) => {
           {placeholder}
         </option>
       )}
-      {options.map(({ id, name }) => (
+      {options.map(({ id, roomName }) => (
         <option key={id} value={id}>
-          {name}
+          {roomName}
         </option>
       ))}
     </select>

@@ -1,7 +1,9 @@
 import { GraphQLID, GraphQLNonNull, GraphQLObjectType, GraphQLString } from 'graphql';
 import { Message } from '../modules/Message';
+import { Room } from '../modules/Room';
 import { User } from '../modules/User';
 import { MessageType } from './message_type';
+import { RoomType } from './room_type';
 import { UserType } from './user_type';
 
 export const mutation = new GraphQLObjectType({
@@ -35,6 +37,19 @@ export const mutation = new GraphQLObjectType({
         });
 
         return message.save();
+      },
+    },
+    createRoom: {
+      type: RoomType,
+      args: {
+        roomName: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      resolve(parent, { roomName }) {
+        const room = new Room({
+          roomName,
+        });
+
+        return room.save();
       },
     },
   },

@@ -6,7 +6,7 @@ export const RoomType = new GraphQLObjectType({
   name: 'Room',
   fields: () => ({
     id: { type: new GraphQLNonNull(GraphQLID) },
-    name: { type: new GraphQLNonNull(GraphQLString) },
+    roomName: { type: new GraphQLNonNull(GraphQLString) },
     users: {
       type: new GraphQLList(UserType),
       resolve(parent) {
