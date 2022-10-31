@@ -17,7 +17,6 @@ export const TimeLine = ({ timesEvents }: TimeLineProps) => {
         return ('0' + ~~(i / 4) + ':0' + 60 * ((i / 4) % 1)).replace(/\d(\d\d)/g, '$1');
       });
   }, []);
-  console.log();
 
   return (
     <div
@@ -27,15 +26,20 @@ export const TimeLine = ({ timesEvents }: TimeLineProps) => {
         return (
           <div key={i}>
             <div className="relative ">
-              <div className="absolute z-20 left-96">
-                {timesEvents.filter(
-                  item =>
-                    Date.parse(`01/01/2011 ${item}:00`) > Date.parse(`01/01/2011 ${time}:10`) &&
-                    Date.parse(`01/01/2011 ${item}:00`) <
-                      Date.parse(`01/01/2011 ${timeArr[i + 1]}:10`)
-                )}
-              </div>
+              <div className=""></div>
               <Time time={time} />
+              <div>
+                {timesEvents
+                  .filter(
+                    item =>
+                      Date.parse(`01/01/2011 ${item}:00`) > Date.parse(`01/01/2011 ${time}:10`) &&
+                      Date.parse(`01/01/2011 ${item}:00`) <
+                        Date.parse(`01/01/2011 ${timeArr[i + 1]}:10`)
+                  )
+                  .map((eventTime, j) => (
+                    <div key={j}>{eventTime}</div>
+                  ))}
+              </div>
               <Line time={time} />
             </div>
           </div>

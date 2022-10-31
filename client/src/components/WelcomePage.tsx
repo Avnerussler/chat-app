@@ -1,17 +1,16 @@
 import { useQuery } from '@apollo/client';
 import { GET_ROOMS } from '../queries/getRooms';
-import { FloatButtonPosition } from '../types';
 import { TimeLine } from './TimeLine';
 import { FloatButton } from './utils/FluatButton';
-import { Input } from './utils/Input';
-import { Select } from './utils/Select';
 import { BsPlusLg } from 'react-icons/bs';
 import * as dayjs from 'dayjs';
 import { useState } from 'react';
+import { Modal } from './utils/Modal/Modal';
+import { useToggle } from '../hooks/useToggle';
 export const WelcomePage = () => {
   const { loading, error, data } = useQuery(GET_ROOMS);
   const [timesEvents, setTimesEvents] = useState<string[]>([]);
-
+  const { toggle, isOpen } = useToggle();
   if (loading) {
     return <div>loading...</div>;
   }
@@ -21,20 +20,22 @@ export const WelcomePage = () => {
   }
 
   const handleClick = () => {
-    setTimesEvents([...timesEvents, dayjs().format('HH:MM')]);
+    setTimesEvents([...timesEvents, dayjs().format('HH:mm')]);
   };
   console.log(timesEvents);
 
   return (
     <div className="">
-      {/* <Input /> */}
+      <button onClick={toggle}>open</button>
+      <Modal className="" isOpen={isOpen} handleClose={toggle}>
+        This is Modal Content!
+      </Modal>
       <TimeLine timesEvents={timesEvents} />
       <FloatButton
         onClick={handleClick}
         className="text-black"
         icon={<BsPlusLg className="w-8" />}
       />
-      {/* <Select options={data.rooms} placeholder="Select Room" /> */}
     </div>
   );
 };
